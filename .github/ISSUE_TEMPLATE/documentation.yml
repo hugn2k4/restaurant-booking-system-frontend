@@ -1,0 +1,61 @@
+name: 📚 Documentation Issue
+description: Report an issue with documentation
+title: "[Docs]: "
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping us improve our documentation!
+
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: 📄 Documentation Type
+      options:
+        - README
+        - API Documentation
+        - Installation Guide
+        - Contributing Guide
+        - Code Comments
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue
+    attributes:
+      label: ❌ Issue Description
+      description: What's wrong with the documentation?
+      placeholder: The documentation for X is unclear because...
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: 📍 Location
+      description: Where is this documentation located?
+      placeholder: e.g., docs/10-api.md, line 42
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: ✅ Suggested Improvement
+      description: How should it be improved?
+      placeholder: I suggest changing it to...
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 📌 Additional Context
+      description: Add any other context
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: ✅ Checklist
+      options:
+        - label: I have checked for existing documentation issues
+          required: true
+        - label: I can help improve this documentation

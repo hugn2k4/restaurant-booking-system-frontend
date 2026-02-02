@@ -1,0 +1,90 @@
+{
+  "editor.bracketPairColorization.enabled": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.guides.bracketPairs": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.insertSpaces": true,
+  "editor.rulers": [
+    80,
+    120
+  ],
+  "editor.tabSize": 2,
+  // Emmet
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact"
+  },
+  "eslint.alwaysShowStatus": true,
+  // ESLint
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  // Files
+  "files.eol": "\n",
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.vite": true,
+    "**/dist": true,
+    "**/node_modules": true
+  },
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "git.confirmSync": false,
+  // Git
+  "git.enableSmartCommit": true,
+  "i18n-ally.enabledFrameworks": [
+    "react",
+    "i18next"
+  ],
+  "i18n-ally.keystyle": "nested",
+  // i18n Ally
+  "i18n-ally.localesPaths": [
+    "src/locales"
+  ],
+  // Path Intellisense
+  "path-intellisense.mappings": {
+    "@": "${workspaceRoot}/src",
+    "@api": "${workspaceRoot}/src/api",
+    "@assets": "${workspaceRoot}/src/assets",
+    "@components": "${workspaceRoot}/src/components",
+    "@config": "${workspaceRoot}/src/config",
+    "@contexts": "${workspaceRoot}/src/contexts",
+    "@hooks": "${workspaceRoot}/src/hooks",
+    "@pages": "${workspaceRoot}/src/pages",
+    "@services": "${workspaceRoot}/src/services",
+    "@types": "${workspaceRoot}/src/types",
+    "@utils": "${workspaceRoot}/src/utils"
+  },
+  // Prettier
+  "prettier.requireConfig": true,
+  "prettier.useEditorConfig": true,
+  // Search
+  "search.exclude": {
+    "**/.vite": true,
+    "**/dist": true,
+    "**/node_modules": true,
+    "**/package-lock.json": true
+  },
+  // Tailwind CSS
+  "tailwindCSS.experimental.classRegex": [
+    [
+      "class[:]\\s*['\"`]([^'\"`]*)['\"`]",
+      "([^\"'`\\s]*)"
+    ]
+  ],
+  // Terminal
+  "terminal.integrated.defaultProfile.windows": "Windows PowerShell",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  // TypeScript
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

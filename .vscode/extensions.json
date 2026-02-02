@@ -1,0 +1,28 @@
+{
+  "recommendations": [
+    // TypeScript & React
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "formulahendry.auto-rename-tag",
+    "bradlc.vscode-tailwindcss",
+
+    // i18n
+    "lokalise.i18n-ally",
+
+    // Git
+    "eamodio.gitlens",
+    "github.vscode-pull-request-github",
+
+    // Utilities
+    "christian-kohler.path-intellisense",
+    "visualstudioexptteam.vscodeintellicode",
+    "streetsidesoftware.code-spell-checker",
+
+    // Icons & Themes
+    "pkief.material-icon-theme",
+
+    // Code Quality
+    "usernamehw.errorlens",
+    "wayou.vscode-todo-highlight"
+  ]
+}
