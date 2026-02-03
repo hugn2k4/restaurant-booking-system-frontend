@@ -69,6 +69,19 @@
     "updateSuccess": "Updated successfully",
     "warning": "Warning"
   },
+  "errors": {
+    "noData": "Unable to load data. Please try again later.",
+    "noDataAvailable": "Data not available",
+    "serverError": "Server is experiencing issues. Please try again later.",
+    "serverErrorShort": "Server error",
+    "notFound": "Data not found.",
+    "notFoundShort": "Not found",
+    "loadError": "An error occurred while loading data. Please try again.",
+    "dataLoadSuccess": "Data reloaded successfully",
+    "title": "Oops! An error occurred",
+    "retry": "Retry",
+    "retrying": "Retrying..."
+  },
   "navigation": {
     "about": "About Us",
     "account": "Account",

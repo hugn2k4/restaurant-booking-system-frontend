@@ -1,6 +1,6 @@
 import { Box, Container, Skeleton, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ShiningStarsIcon from "../../../assets/icons/shining_stars.svg";
 import SparkleIcon from "../../../assets/icons/sparkle.svg";
@@ -13,18 +13,21 @@ const Hero = () => {
   const loading = false;
   const { t } = useTranslation("home");
   const [hoveredPlace, setHoveredPlace] = useState(false);
-  // Lấy banner từ API
   const heroImage = ImageHero;
   const heroImageMobile = ImageHeroMobile;
   const navigate = useNavigate();
+
+  // Memoize callbacks
+  const handlePlaceHover = useCallback(() => setHoveredPlace(true), []);
+  const handlePlaceLeave = useCallback(() => setHoveredPlace(false), []);
+  const handleNavigateShop = useCallback(() => navigate("/shop"), [navigate]);
   return (
     <section className="w-full min-h-[90vh] flex flex-col relative overflow-hidden">
       {/* Right side: Hero Image - positioned absolutely to reach screen edge */}
-      <Box
-        component={motion.div}
+      <motion.div
         initial={{ opacity: 0, x: 100 }}
         whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.8 }}
         viewport={{ once: true, amount: 0.3 }}
         className="absolute top-0 right-0 w-1/2 h-full hidden lg:flex items-start justify-end z-0"
       >
@@ -39,7 +42,7 @@ const Hero = () => {
             loading="eager"
           />
         ) : null}
-      </Box>
+      </motion.div>
 
       <Container maxWidth="xl" className="flex-1 relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[90vh] items-center relative">
@@ -48,7 +51,7 @@ const Hero = () => {
             component={motion.div}
             initial={{ opacity: 0, x: -100 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true, amount: 0.3 }}
             className="flex flex-col justify-center items-center lg:items-start px-4 lg:px-8 py-12 lg:py-0 text-center lg:text-left order-2 lg:order-1 relative z-10"
           >
@@ -172,9 +175,9 @@ const Hero = () => {
                 </MyButton>
                 <MyButton
                   colorScheme="lightGreen"
-                  onMouseEnter={() => setHoveredPlace(true)}
-                  onMouseLeave={() => setHoveredPlace(false)}
-                  onClick={() => navigate("/shop")}
+                  onMouseEnter={handlePlaceHover}
+                  onMouseLeave={handlePlaceLeave}
+                  onClick={handleNavigateShop}
                   sx={{ width: { xs: "100%", sm: "auto" } }}
                 >
                   {t("hero.placeOrder")}
@@ -237,4 +240,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default memo(Hero);

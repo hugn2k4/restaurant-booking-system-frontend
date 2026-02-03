@@ -1,32 +1,46 @@
 import { Clock, Factory, Truck, UtensilsCrossed } from "lucide-react";
-import { useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "../../../hooks/useTranslation";
 
 const WhyChooseUs = () => {
   const { t } = useTranslation("home");
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const features = [
-    {
-      icon: <Truck size={40} strokeWidth={1.5} />,
-      title: t("whyChooseUs.fastDelivery") as string,
-      color: "bg-white",
-    },
-    {
-      icon: <Clock size={40} strokeWidth={1.5} />,
-      title: t("whyChooseUs.service247") as string,
-      color: "bg-white",
-    },
-    {
-      icon: <UtensilsCrossed size={40} strokeWidth={1.5} />,
-      title: t("whyChooseUs.freshFood") as string,
-      color: "bg-white",
-    },
-    {
-      icon: <Factory size={40} strokeWidth={1.5} />,
-      title: t("whyChooseUs.qualityMaintain") as string,
-      color: "bg-white",
-    },
-  ];
+
+  // Memoize callbacks
+  const handleMouseEnter = useCallback((index: number) => {
+    setHoveredIndex(index);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setHoveredIndex(null);
+  }, []);
+
+  // Memoize features array to prevent recreation
+  const features = useMemo(
+    () => [
+      {
+        icon: <Truck size={40} strokeWidth={1.5} />,
+        title: t("whyChooseUs.fastDelivery") as string,
+        color: "bg-white",
+      },
+      {
+        icon: <Clock size={40} strokeWidth={1.5} />,
+        title: t("whyChooseUs.service247") as string,
+        color: "bg-white",
+      },
+      {
+        icon: <UtensilsCrossed size={40} strokeWidth={1.5} />,
+        title: t("whyChooseUs.freshFood") as string,
+        color: "bg-white",
+      },
+      {
+        icon: <Factory size={40} strokeWidth={1.5} />,
+        title: t("whyChooseUs.qualityMaintain") as string,
+        color: "bg-white",
+      },
+    ],
+    [t]
+  );
 
   return (
     <div className="bg-gradient-to-br from-gray-50 to-white py-16 px-4">
@@ -69,8 +83,10 @@ const WhyChooseUs = () => {
             {/* Header */}
             <div>
               <p className="text-green-700 font-semibold mb-3 flex items-center gap-2">
-                <span className="text-lg">{t("whyChooseUs.sectionTitle") as string}</span>
-                <span className="w-12 h-[2px] bg-green-700"></span>
+                <span className="text-2xl" style={{ fontFamily: "Miniver, cursive" }}>
+                  {t("whyChooseUs.sectionTitle") as string}
+                </span>
+                <span className="w-12 h-[2px] mt-2 bg-green-700"></span>
               </p>
               <h2 className="text-5xl font-bold text-gray-900 mb-6 leading-tight">
                 {t("whyChooseUs.heading") as string}
@@ -89,8 +105,8 @@ const WhyChooseUs = () => {
                 return (
                   <div
                     key={index}
-                    onMouseEnter={() => setHoveredIndex(index)}
-                    onMouseLeave={() => setHoveredIndex(null)}
+                    onMouseEnter={() => handleMouseEnter(index)}
+                    onMouseLeave={handleMouseLeave}
                     className={`${feature.color} p-6 rounded-xl hover:shadow-lg transition-all duration-300 hover:-translate-y-1 relative overflow-hidden ${
                       showGreen ? "border-l-4 border-green-primary" : "border-l-4 border-transparent"
                     }`}
@@ -124,4 +140,4 @@ const WhyChooseUs = () => {
   );
 };
 
-export default WhyChooseUs;
+export default memo(WhyChooseUs);

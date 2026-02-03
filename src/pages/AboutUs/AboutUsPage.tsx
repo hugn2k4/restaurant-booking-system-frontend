@@ -1,6 +1,6 @@
+import MenuSection from "../../components/shared/MenuSection";
 import TeamSection from "../../components/shared/TeamSection";
 import FoodGallerySection from "./components/FoodGallerySection";
-import MenuSection from "./components/MenuSection";
 import TestimonialSection from "./components/TestimonialSection";
 import WhyChooseUsSection from "./components/WhyChooseUsSection";
 const AboutUsPage = () => {
@@ -10,7 +10,7 @@ const AboutUsPage = () => {
       <WhyChooseUsSection />
       <TeamSection variant="about" />
       <TestimonialSection />
-      <MenuSection />
+      <MenuSection translationNamespace="about" theme="primary" />
     </div>
   );
 };

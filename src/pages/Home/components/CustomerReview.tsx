@@ -1,55 +1,68 @@
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
-import { useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "../../../hooks/useTranslation";
 
 const CustomerReview = () => {
   const { t } = useTranslation("home");
   const [currentReview, setCurrentReview] = useState(0);
 
-  const reviews = [
-    {
-      id: 1,
-      name: "Abdur Rahman",
-      role: "Regular Customer",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop",
-      text: "I’ve been ordering from here for months and the quality never drops. The quinoa bowl is my go-to lunch – fresh ingredients, perfect portion, and it actually keeps me full all afternoon. Highly recommend for anyone trying to eat healthier without sacrificing taste!",
-      dishImage:
-        "https://dmrqkbkq8el9i.cloudfront.net/Pictures/780xany/3/8/0/291380_anniesprattot7_vi0hhgunsplash_146309.jpg",
-      dishName: "Quinoa Power Bowl",
-      price: "$14.00",
-      rating: 5,
-    },
-    {
-      id: 2,
-      name: "Sarah Johnson",
-      role: "Fitness Enthusiast",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop",
-      text: "Finally found a place that understands healthy doesn’t mean boring! The grilled salmon salad is packed with flavor and the dressing is light but delicious. Delivery is always on time and the packaging keeps everything fresh. My new favorite spot!",
-      dishImage: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&h=600&fit=crop",
-      dishName: "Grilled Salmon Salad",
-      price: "$16.50",
-      rating: 5,
-    },
-    {
-      id: 3,
-      name: "Michael Chen",
-      role: "Busy Professional",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop",
-      text: "As someone who works long hours, I rely on quick but nutritious meals. Their chicken avocado wrap with the green smoothie combo is perfect – tastes amazing and gives me energy without the afternoon crash. Great portion sizes and consistent quality every time.",
-      dishImage: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&h=600&fit=crop",
-      dishName: "Chicken Avocado Wrap",
-      price: "$12.00",
-      rating: 5,
-    },
-  ];
+  // Memoize reviews data to prevent recreation
+  const reviews = useMemo(
+    () => [
+      {
+        id: 1,
+        name: "Abdur Rahman",
+        role: "Regular Customer",
+        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop",
+        text: "I've been ordering from here for months and the quality never drops. The quinoa bowl is my go-to lunch – fresh ingredients, perfect portion, and it actually keeps me full all afternoon. Highly recommend for anyone trying to eat healthier without sacrificing taste!",
+        dishImage:
+          "https://dmrqkbkq8el9i.cloudfront.net/Pictures/780xany/3/8/0/291380_anniesprattot7_vi0hhgunsplash_146309.jpg",
+        dishName: "Quinoa Power Bowl",
+        price: "$14.00",
+        rating: 5,
+        description:
+          "Organic quinoa, fresh vegetables, avocado, chickpeas, and lemon-tahini dressing – a complete balanced meal.",
+      },
+      {
+        id: 2,
+        name: "Sarah Johnson",
+        role: "Fitness Enthusiast",
+        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop",
+        text: "Finally found a place that understands healthy doesn't mean boring! The grilled salmon salad is packed with flavor and the dressing is light but delicious. Delivery is always on time and the packaging keeps everything fresh. My new favorite spot!",
+        dishImage: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&h=600&fit=crop",
+        dishName: "Grilled Salmon Salad",
+        price: "$16.50",
+        rating: 5,
+        description: "Wild-caught salmon, mixed greens, cherry tomatoes, cucumber, and light balsamic vinaigrette.",
+      },
+      {
+        id: 3,
+        name: "Michael Chen",
+        role: "Busy Professional",
+        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop",
+        text: "As someone who works long hours, I rely on quick but nutritious meals. Their chicken avocado wrap with the green smoothie combo is perfect – tastes amazing and gives me energy without the afternoon crash. Great portion sizes and consistent quality every time.",
+        dishImage: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&h=600&fit=crop",
+        dishName: "Chicken Avocado Wrap",
+        price: "$12.00",
+        rating: 5,
+        description: "Grilled chicken breast, ripe avocado, whole grain wrap with fresh greens and herb dressing.",
+      },
+    ],
+    []
+  );
 
-  const handlePrev = () => {
+  // Memoize callbacks
+  const handlePrev = useCallback(() => {
     setCurrentReview((prev) => (prev === 0 ? reviews.length - 1 : prev - 1));
-  };
+  }, [reviews.length]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setCurrentReview((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
-  };
+  }, [reviews.length]);
+
+  const handleDotClick = useCallback((index: number) => {
+    setCurrentReview(index);
+  }, []);
 
   const currentData = reviews[currentReview];
 
@@ -62,8 +75,8 @@ const CustomerReview = () => {
             {/* Header */}
             <div>
               <p className="text-gray-600 italic mb-2 sm:mb-3 flex items-center gap-2 text-sm sm:text-base">
-                <span>{t("testimonials.heading") as string}</span>
-                <span className="w-8 sm:w-12 h-[1px] bg-gray-400"></span>
+                <span className="text-2xl" style={{ fontFamily: "Miniver, cursive" }}>{t("testimonials.heading") as string}</span>
+                <span className="w-8 sm:w-12 h-[1px] mt-2 bg-gray-400"></span>
               </p>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
                 {t("testimonials.title") as string}
@@ -133,15 +146,7 @@ const CustomerReview = () => {
                   </div>
 
                   {/* Description */}
-                  {/* Description - thay đổi theo từng món */}
-                  <p className="text-xs sm:text-sm text-gray-600 mt-2 line-clamp-2">
-                    {currentReview === 0 &&
-                      "Organic quinoa, fresh vegetables, avocado, chickpeas, and lemon-tahini dressing – a complete balanced meal."}
-                    {currentReview === 1 &&
-                      "Wild-caught salmon, mixed greens, cherry tomatoes, cucumber, and light balsamic vinaigrette."}
-                    {currentReview === 2 &&
-                      "Grilled chicken breast, ripe avocado, whole grain wrap with fresh greens and herb dressing."}
-                  </p>
+                  <p className="text-xs sm:text-sm text-gray-600 mt-2 line-clamp-2">{currentData.description}</p>
                 </div>
 
                 {/* Price */}
@@ -161,7 +166,7 @@ const CustomerReview = () => {
           {reviews.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentReview(index)}
+              onClick={() => handleDotClick(index)}
               className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
                 currentReview === index ? "w-6 sm:w-8 bg-green-600" : "w-1.5 sm:w-2 bg-gray-300 hover:bg-gray-400"
               }`}
@@ -173,4 +178,4 @@ const CustomerReview = () => {
   );
 };
 
-export default CustomerReview;
+export default memo(CustomerReview);

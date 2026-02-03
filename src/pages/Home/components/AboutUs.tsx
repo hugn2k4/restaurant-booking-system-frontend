@@ -1,7 +1,7 @@
-import CloseIcon from "@mui/icons-material/Close"; // ← Thêm icon đóng
+import CloseIcon from "@mui/icons-material/Close";
 import { Box, Dialog, IconButton, Skeleton, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { useState } from "react"; // ← Thêm import này
+import { memo, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ImageAboutUs from "../../../assets/images/defaults/image_about_us.png";
 import MyButton from "../../../components/common/Button";
@@ -15,8 +15,10 @@ function AboutUs() {
   // State để mở/đóng modal video
   const [openVideo, setOpenVideo] = useState(false);
 
-  const handleOpenVideo = () => setOpenVideo(true);
-  const handleCloseVideo = () => setOpenVideo(false);
+  // Memoize callbacks
+  const handleOpenVideo = useCallback(() => setOpenVideo(true), []);
+  const handleCloseVideo = useCallback(() => setOpenVideo(false), []);
+  const handleNavigateAbout = useCallback(() => navigate("/about"), [navigate]);
 
   // Lấy banner từ API
   const aboutUsImage = ImageAboutUs;
@@ -37,7 +39,7 @@ function AboutUs() {
           component={motion.div}
           initial={{ opacity: 0, x: -100 }}
           whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true, amount: 0.3 }}
           sx={{
             flex: { xs: "none", lg: "0 0 50%" },
@@ -71,7 +73,7 @@ function AboutUs() {
           component={motion.div}
           initial={{ opacity: 0, x: 100 }}
           whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true, amount: 0.3 }}
           sx={{
             flex: { xs: "none", lg: "0 0 50%" },
@@ -124,7 +126,7 @@ function AboutUs() {
 
             <Typography
               component={motion.div}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
               viewport={{ once: true }}
@@ -172,7 +174,7 @@ function AboutUs() {
                 pb: { xs: 4, lg: 20 },
               }}
             >
-              <MyButton colorScheme="green" onClick={() => navigate("/about")}>
+              <MyButton colorScheme="green" onClick={handleNavigateAbout}>
                 {t("hero.showMore")}
               </MyButton>
 
@@ -238,4 +240,4 @@ function AboutUs() {
   );
 }
 
-export default AboutUs;
+export default memo(AboutUs);

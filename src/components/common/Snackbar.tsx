@@ -3,6 +3,7 @@ import { Alert, AlertTitle, Snackbar } from "@mui/material";
 import type { SlideProps } from "@mui/material/Slide";
 import Slide from "@mui/material/Slide";
 import React from "react";
+import { useTranslation } from "../../hooks/useTranslation";
 
 export interface AppSnackbarProps {
   open: boolean;
@@ -14,6 +15,9 @@ export interface AppSnackbarProps {
   stackIndex?: number;
   // optional sx to customize styling
   sx?: SxProps<Theme>;
+  // i18n support
+  translationKey?: string;
+  namespace?: string;
 }
 
 function SlideTransition(props: SlideProps) {
@@ -28,7 +32,16 @@ const AppSnackbar: React.FC<AppSnackbarProps> = ({
   onClose,
   stackIndex = 0,
   sx,
+  translationKey,
+  namespace = "common",
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { t } = useTranslation(namespace as any);
+
+  // Use translation if key is provided, otherwise use message directly
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const displayMessage = translationKey ? (t(translationKey as any) as string) : message;
+
   // vertical offset per stacked snackbar (tweak as needed)
   const offset = stackIndex * 84; // 72px per item + 12px gap
 
@@ -52,7 +65,7 @@ const AppSnackbar: React.FC<AppSnackbarProps> = ({
     >
       <Alert onClose={onClose} variant="filled" severity={severity} sx={{ width: "100%" }}>
         <AlertTitle>{severity.toUpperCase()}</AlertTitle>
-        {message}
+        {displayMessage}
       </Alert>
     </Snackbar>
   );

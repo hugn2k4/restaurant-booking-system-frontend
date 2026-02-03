@@ -8,10 +8,18 @@ interface SnackbarItem {
   message: string;
   severity: Severity;
   autoHideDuration?: number;
+  translationKey?: string; // Translation key for i18n
+  namespace?: string; // i18n namespace (default: "common")
 }
 
 interface SnackbarContextProps {
-  showSnackbar: (message: string, severity?: Severity, autoHideDuration?: number) => string;
+  showSnackbar: (
+    message: string,
+    severity?: Severity,
+    autoHideDuration?: number,
+    translationKey?: string,
+    namespace?: string
+  ) => string;
   closeSnackbar: (id: string) => void;
 }
 
@@ -23,11 +31,20 @@ const SnackbarContext = createContext<SnackbarContextProps>({
 export const SnackbarProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [queue, setQueue] = useState<SnackbarItem[]>([]);
 
-  const showSnackbar = useCallback((message: string, severity: Severity = "success", autoHideDuration = 3000) => {
-    const id = `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
-    setQueue((q) => [...q, { id, message, severity, autoHideDuration }]);
-    return id;
-  }, []);
+  const showSnackbar = useCallback(
+    (
+      message: string,
+      severity: Severity = "success",
+      autoHideDuration = 3000,
+      translationKey?: string,
+      namespace = "common"
+    ) => {
+      const id = `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+      setQueue((q) => [...q, { id, message, severity, autoHideDuration, translationKey, namespace }]);
+      return id;
+    },
+    []
+  );
 
   const closeSnackbar = useCallback((id: string) => {
     setQueue((q) => q.filter((n) => n.id !== id));
@@ -50,6 +67,8 @@ export const SnackbarProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           autoHideDuration={item.autoHideDuration}
           onClose={handleClose(item.id)}
           stackIndex={index}
+          translationKey={item.translationKey}
+          namespace={item.namespace}
         />
       ))}
     </SnackbarContext.Provider>

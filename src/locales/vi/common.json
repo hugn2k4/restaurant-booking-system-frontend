@@ -69,6 +69,19 @@
     "updateSuccess": "Đã cập nhật thành công",
     "warning": "Cảnh Báo"
   },
+  "errors": {
+    "noData": "Không thể tải dữ liệu. Vui lòng thử lại sau.",
+    "noDataAvailable": "Dữ liệu không khả dụng",
+    "serverError": "Máy chủ đang gặp sự cố. Vui lòng thử lại sau.",
+    "serverErrorShort": "Lỗi máy chủ",
+    "notFound": "Không tìm thấy dữ liệu.",
+    "notFoundShort": "Không tìm thấy dữ liệu",
+    "loadError": "Đã xảy ra lỗi khi tải dữ liệu. Vui lòng thử lại.",
+    "dataLoadSuccess": "Đã tải lại dữ liệu thành công",
+    "title": "Oops! Có lỗi xảy ra",
+    "retry": "Thử lại",
+    "retrying": "Đang thử lại..."
+  },
   "navigation": {
     "about": "Về Chúng Tôi",
     "account": "Tài Khoản",

@@ -1,6 +1,7 @@
 {
   "title": "Our Menu",
   "subtitle": "Explore Our Delicious Offerings",
+  "pageIndicator": "Page {{current}} / {{total}}",
   "categories": {
     "all": "All",
     "appetizers": "Appetizers",

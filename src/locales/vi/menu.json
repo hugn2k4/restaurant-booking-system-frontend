@@ -1,6 +1,7 @@
 {
   "title": "Thực Đơn",
   "subtitle": "Khám Phá Các Món Ăn Ngon",
+  "pageIndicator": "Trang {{current}} / {{total}}",
   "categories": {
     "all": "Tất Cả",
     "appetizers": "Khai Vị",

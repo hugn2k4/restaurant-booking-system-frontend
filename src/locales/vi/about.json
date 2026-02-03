@@ -59,6 +59,12 @@
     "viewMore": "Xem Thêm Thực Đơn",
     "noDescription": "Chưa có mô tả"
   },
+  "menuSection": {
+    "allCategory": "Tất Cả",
+    "title": "Thực Đơn Của Chúng Tôi",
+    "description": "Khám phá các món ăn ngon được chế biến từ nguyên liệu tươi ngon nhất và công thức truyền thống.",
+    "viewAllMenu": "Xem Thêm Thực Đơn"
+  },
   "testimonials": {
     "subtitle": "Đánh Giá",
     "title": "Khách Hàng Nói Gì Về Chúng Tôi",

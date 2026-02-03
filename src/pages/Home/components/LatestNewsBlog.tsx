@@ -1,9 +1,12 @@
 import { ArrowRight, Calendar, MessageSquare } from "lucide-react";
+import { memo, useMemo } from "react";
 import { useTranslation } from "../../../hooks/useTranslation";
 
 const LatestNewsBlog = () => {
   const { t } = useTranslation("home");
-  const blogPosts = [
+
+  // Memoize blog posts to prevent recreation
+  const blogPosts = useMemo(() => [
     {
       id: 1,
       image:
@@ -34,7 +37,7 @@ const LatestNewsBlog = () => {
       excerpt:
         "Lorem ipsum dolor sit amet, consectetur elit. Non mi sed etiam a id at ultricies neque.Tempus,poten diam ac integer id tellus est.",
     },
-  ];
+  ], []);
 
   return (
     <div className="bg-white py-12 sm:py-16 lg:py-20 px-4">
@@ -42,7 +45,7 @@ const LatestNewsBlog = () => {
         {/* Header */}
         <div className="text-center mb-10 sm:mb-12 lg:mb-16">
           <div className="flex justify-center items-center gap-2 mb-3 sm:mb-4">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">{t("blog.title") as string}</h1>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900"  >{t("blog.title") as string}</h1>
             <span className="text-2xl sm:text-3xl">🌿</span>
           </div>
           <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
@@ -102,4 +105,4 @@ const LatestNewsBlog = () => {
   );
 };
 
-export default LatestNewsBlog;
+export default memo(LatestNewsBlog);

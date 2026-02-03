@@ -10,6 +10,12 @@
     "title": "Our Food Menu",
     "viewMore": "View More Menu"
   },
+  "menuSection": {
+    "allCategory": "All",
+    "title": "Our Food Menu",
+    "description": "Discover our delicious selection of dishes prepared with the finest ingredients and authentic recipes.",
+    "viewAllMenu": "View More Menu"
+  },
   "mission": {
     "content": "To provide our guests with exceptional food, warm hospitality, and memorable moments that bring people together.",
     "title": "Our Mission"

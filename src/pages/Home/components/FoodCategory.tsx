@@ -1,7 +1,5 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import categoryApi from "../../../api/categoryApi";
-import { useSnackbar } from "../../../hooks/useSnackbar";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "../../../hooks/useTranslation";
 import type { CategoryResponse } from "../../../types/responses/category.response";
 
@@ -9,50 +7,51 @@ type CategoryDisplay = CategoryResponse & {
   items: number;
 };
 
+interface FoodCategoryCarouselProps {
+  categories?: CategoryResponse[];
+  loading?: boolean;
+}
+
 const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7?w=400";
 
-const FoodCategoryCarousel = () => {
+// Helper function to get items per view based on window width
+const getItemsPerView = (): number => {
+  if (typeof window === "undefined") return 4;
+  if (window.innerWidth < 640) return 1;
+  if (window.innerWidth < 768) return 2;
+  if (window.innerWidth < 1024) return 3;
+  return 4;
+};
+
+const FoodCategoryCarousel: React.FC<FoodCategoryCarouselProps> = ({
+  categories: categoriesProp,
+  loading: loadingProp,
+}) => {
   const { t } = useTranslation("home");
   const [categories, setCategories] = useState<CategoryDisplay[]>([]);
-  const [loading, setLoading] = useState(true);
+  const loading = loadingProp ?? true;
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardWidth, setCardWidth] = useState(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const { showSnackbar } = useSnackbar();
-
+  // Process categories from props
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        setLoading(true);
-        const res = await categoryApi.getCategories();
+    if (categoriesProp && categoriesProp.length > 0) {
+      const processedCategories: CategoryDisplay[] = categoriesProp.map((cat) => ({
+        id: cat.id,
+        name: cat.name,
+        image: cat.image,
+        items: Math.floor(Math.random() * 20) + 15,
+      }));
+      setCategories(processedCategories);
+    }
+  }, [categoriesProp]);
 
-        if (res.success && res.data) {
-          const processedCategories: CategoryDisplay[] = res.data.map((cat) => ({
-            id: cat.id,
-            name: cat.name,
-            image: cat.image,
-            items: Math.floor(Math.random() * 20) + 15,
-          }));
-
-          setCategories(processedCategories);
-          setLoading(false); // Only stop loading on success
-        } else {
-          showSnackbar("Không tải được danh mục: " + res.message, "error");
-          // Keep loading = true to show skeleton
-        }
-      } catch (error) {
-        console.error("Lỗi tải categories:", error);
-        showSnackbar("Lỗi kết nối server khi tải danh mục", "error");
-        // Keep loading = true to show skeleton
-      }
-    };
-
-    fetchCategories();
-  }, [showSnackbar]);
-
+  // Debounced resize handler
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
     const resize = () => {
       if (!containerRef.current) return;
 
@@ -62,28 +61,36 @@ const FoodCategoryCarousel = () => {
       }
     };
 
+    const debouncedResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(resize, 150);
+    };
+
     resize();
-    window.addEventListener("resize", resize);
-    return () => window.removeEventListener("resize", resize);
+    window.addEventListener("resize", debouncedResize);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("resize", debouncedResize);
+    };
   }, [categories.length]);
 
-  const getItemsPerView = () => {
-    if (window.innerWidth < 640) return 1;
-    if (window.innerWidth < 768) return 2;
-    if (window.innerWidth < 1024) return 3;
-    return 4;
-  };
+  // Memoize calculations
+  const maxIndex = useMemo(() => Math.max(0, categories.length - getItemsPerView()), [categories.length]);
 
-  const maxIndex = Math.max(0, categories.length - getItemsPerView());
-
-  const handlePrev = () => {
+  // Memoize callbacks
+  const handlePrev = useCallback(() => {
     setCurrentIndex((prev) => Math.max(0, prev - 1));
-  };
+  }, []);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
-  };
+  }, [maxIndex]);
 
+  const handleDotClick = useCallback((index: number) => {
+    setCurrentIndex(index);
+  }, []);
+
+  // Show skeleton while loading or if error occurred
   if (loading || categories.length === 0) {
     return (
       <div className="bg-[#f5f5f0] py-16 px-4">
@@ -181,7 +188,7 @@ const FoodCategoryCarousel = () => {
           {Array.from({ length: maxIndex + 1 }).map((_, i) => (
             <button
               key={i}
-              onClick={() => setCurrentIndex(i)}
+              onClick={() => handleDotClick(i)}
               className={`h-2 rounded-full transition-all duration-300
                                 ${currentIndex === i ? "w-8 bg-green-700" : "w-2 bg-gray-300"}
                             `}
@@ -193,4 +200,4 @@ const FoodCategoryCarousel = () => {
   );
 };
 
-export default FoodCategoryCarousel;
+export default memo(FoodCategoryCarousel);

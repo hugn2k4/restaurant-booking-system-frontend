@@ -1,12 +1,12 @@
 import { Box, Skeleton, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import productApi from "../../api/productApi";
-import DefaultBurger from "../../assets/images/products/image_burger.png";
-import DefaultCocktail from "../../assets/images/products/image_cocktail.png";
-import DefaultCupcake from "../../assets/images/products/image_cupcake.png";
-import DefaultSalad from "../../assets/images/products/image_salad.png";
-import type { ProductResponse } from "../../types/responses/product.response";
+import productApi from "../../../api/productApi";
+import type { ProductResponse } from "../../../types/responses/product.response";
+import DefaultBurger from "../../../assets/images/products/image_burger.png";
+import DefaultCocktail from "../../../assets/images/products/image_cocktail.png";
+import DefaultCupcake from "../../../assets/images/products/image_cupcake.png";
+import DefaultSalad from "../../../assets/images/products/image_salad.png";
 
 const MenuItem: React.FC<{ item: ProductResponse }> = ({ item }) => {
   const itemRef = useRef<HTMLDivElement>(null);
