@@ -30,5 +30,11 @@
     "viewDetails": "View Details",
     "calories": "{{count}} cal",
     "servingSize": "Serving Size"
+  },
+  "stats": {
+    "professionalChefs": "Professional Chefs",
+    "itemsOfFood": "Items Of Food",
+    "yearsOfExperience": "Years of Experience",
+    "happyCustomers": "Happy Customers"
   }
 }

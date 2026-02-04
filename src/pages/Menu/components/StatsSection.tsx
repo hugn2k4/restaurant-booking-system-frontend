@@ -1,16 +1,24 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
+import { useTranslation } from "../../../hooks/useTranslation";
 
 // Import Icons/Images
-
-const statsData = [
-  { image: "../../src/assets/icons/image_chef.png", number: "420", description: "Professional Chefs" },
-  { image: "../../src/assets/icons/image_food.png", number: "320", description: "Items Of Food" },
-  { image: "../../src/assets/icons/image_experience.png", number: "30+", description: "Years of Experience" },
-  { image: "../../src/assets/icons/image_happy.png", number: "420", description: "Happy Customers" },
-];
+import ImageChef from "../../../assets/icons/image_chef.png";
+import ImageFood from "../../../assets/icons/image_food.png";
+import ImageExperience from "../../../assets/icons/image_experience.png";
+import ImageHappy from "../../../assets/icons/image_happy.png";
+import ImageStatsBackground from "../../../assets/images/defaults/image_stats_background.png";
 
 const StatsSection: React.FC = () => {
+  const { t } = useTranslation("menu");
+
+  const statsData = [
+    { image: ImageChef, number: "420", description: t("stats.professionalChefs") },
+    { image: ImageFood, number: "320", description: t("stats.itemsOfFood") },
+    { image: ImageExperience, number: "30+", description: t("stats.yearsOfExperience") },
+    { image: ImageHappy, number: "220", description: t("stats.happyCustomers") },
+  ];
+
   return (
     <Box
       sx={{
@@ -30,7 +38,7 @@ const StatsSection: React.FC = () => {
           left: 0,
           width: "100%",
           height: "100%",
-          backgroundImage: `url(../../src/assets/images/defaults/image_stats_background.png)`,
+          backgroundImage: `url(${ImageStatsBackground})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

@@ -30,5 +30,11 @@
     "viewDetails": "Xem Chi Tiết",
     "calories": "{{count}} cal",
     "servingSize": "Khẩu Phần"
+  },
+  "stats": {
+    "professionalChefs": "Đầu Bếp Chuyên Nghiệp",
+    "itemsOfFood": "Món Ăn",
+    "yearsOfExperience": "Năm Kinh Nghiệm",
+    "happyCustomers": "Khách Hàng Hài Lòng"
   }
 }
