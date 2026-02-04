@@ -18,6 +18,7 @@ import {
 import { motion } from "framer-motion";
 import { memo, useEffect, useRef, useState } from "react";
 import type { TagResponse } from "../../../api/tagApi";
+import GalleryBanner from "../../../assets/gallery/gallery_banner.png";
 import { useCurrency } from "../../../hooks/useCurrency";
 import useTranslation from "../../../hooks/useTranslation";
 import type { CategoryResponse } from "../../../types/responses/category.response";
@@ -264,7 +265,7 @@ const FilterSidebar = memo(({ onFilterChange, categories, tags, latestProducts }
         }}
       >
         <img
-          src="../../src/assets/gallery/gallery_banner.png"
+          src={GalleryBanner}
           alt="Poster Quảng Cáo"
           style={{
             width: "100%",
