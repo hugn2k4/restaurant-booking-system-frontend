@@ -4,8 +4,8 @@ import { useTranslation } from "../../../hooks/useTranslation";
 
 // Import Icons/Images
 import ImageChef from "../../../assets/icons/image_chef.png";
-import ImageFood from "../../../assets/icons/image_food.png";
 import ImageExperience from "../../../assets/icons/image_experience.png";
+import ImageFood from "../../../assets/icons/image_food.png";
 import ImageHappy from "../../../assets/icons/image_happy.png";
 import ImageStatsBackground from "../../../assets/images/defaults/image_stats_background.png";
 
