@@ -1,4 +1,4 @@
-import { Box, IconButton, Skeleton, Typography } from "@mui/material";
+import { Box, IconButton, Skeleton, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { memo, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,8 @@ interface CategoryWithProducts {
 const MenuBook: React.FC = () => {
   const { t } = useTranslation("menu");
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const [categoriesWithProducts, setCategoriesWithProducts] = useState<CategoryWithProducts[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -173,8 +175,8 @@ const MenuBook: React.FC = () => {
         sx={{
           maxWidth: "1400px",
           mx: "auto",
-          py: 8,
-          px: 4,
+          py: { xs: 4, md: 8 },
+          px: { xs: 0, md: 4 },
         }}
       >
         <Box
@@ -183,11 +185,88 @@ const MenuBook: React.FC = () => {
             gap: 4,
             justifyContent: "center",
             alignItems: "stretch",
+            flexDirection: { xs: "column", md: "row" },
           }}
         >
-          <Skeleton variant="rectangular" width={600} height={800} />
-          <Skeleton variant="rectangular" width={600} height={800} />
+          <Skeleton variant="rectangular" width="100%" height={isMobile ? 300 : 800} />
+          {!isMobile && <Skeleton variant="rectangular" width={600} height={800} />}
         </Box>
+      </Box>
+    );
+  }
+
+  if (isMobile) {
+    return (
+      <Box
+        id="menu-book-section"
+        sx={{
+          maxWidth: "700px",
+          mx: "auto",
+          py: 2,
+          px: 0,
+        }}
+      >
+        <Typography
+          variant="h4"
+          sx={{
+            fontFamily: "'Playfair Display', Georgia, serif",
+            fontWeight: 700,
+            color: "#2c1810",
+            textAlign: "center",
+            mb: 2,
+          }}
+        >
+          MENU
+        </Typography>
+        {categoriesWithProducts.map((entry) => (
+          <Box
+            key={entry.category.id}
+            sx={{
+              mb: 2,
+              p: 2,
+              bgcolor: "#fdfbf7",
+              border: "1px solid #e8e4dc",
+              borderRadius: 1,
+            }}
+          >
+            <Typography
+              sx={{
+                fontFamily: "'Playfair Display', Georgia, serif",
+                fontSize: "1.35rem",
+                fontWeight: 700,
+                color: "#2c1810",
+                mb: 1.5,
+              }}
+            >
+              {entry.category.name}
+            </Typography>
+            {entry.products.slice(0, 8).map((product) => (
+              <Box
+                key={product.id}
+                onClick={() => handleProductClick(product.id)}
+                sx={{
+                  mb: 1.2,
+                  cursor: "pointer",
+                }}
+              >
+                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 1.5 }}>
+                  <Typography sx={{ color: "#2c1810", fontWeight: 600, fontSize: "0.98rem" }}>
+                    {product.name}
+                  </Typography>
+                  <Typography sx={{ color: "#d4af37", fontWeight: 700, whiteSpace: "nowrap", fontSize: "0.95rem" }}>
+                    ${product.price.toFixed(2)}
+                  </Typography>
+                </Box>
+                {product.description && (
+                  <Typography sx={{ color: "text.secondary", fontSize: "0.82rem", mt: 0.2 }}>
+                    {product.description}
+                  </Typography>
+                )}
+                <Box sx={{ borderBottom: "1px dotted #d4c5b0", mt: 0.8 }} />
+              </Box>
+            ))}
+          </Box>
+        ))}
       </Box>
     );
   }
@@ -198,8 +277,8 @@ const MenuBook: React.FC = () => {
       sx={{
         maxWidth: "1400px",
         mx: "auto",
-        py: 8,
-        px: 4,
+        py: { xs: 4, md: 8 },
+        px: { xs: 0, md: 4 },
         minHeight: "80vh",
         // background: "radial-gradient(ellipse at center, #f5f1e8 0%, #ebe4d5 50%, #ddd5c3 100%)",
         position: "relative",

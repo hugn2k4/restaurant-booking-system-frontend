@@ -2,11 +2,11 @@ import { Box, Skeleton, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import productApi from "../../../api/productApi";
-import type { ProductResponse } from "../../../types/responses/product.response";
 import DefaultBurger from "../../../assets/images/products/image_burger.png";
 import DefaultCocktail from "../../../assets/images/products/image_cocktail.png";
 import DefaultCupcake from "../../../assets/images/products/image_cupcake.png";
 import DefaultSalad from "../../../assets/images/products/image_salad.png";
+import type { ProductResponse } from "../../../types/responses/product.response";
 
 const MenuItem: React.FC<{ item: ProductResponse }> = ({ item }) => {
   const itemRef = useRef<HTMLDivElement>(null);
@@ -36,7 +36,7 @@ const MenuItem: React.FC<{ item: ProductResponse }> = ({ item }) => {
             onClick={handleProductClick}
             sx={{
               color: "#000",
-              fontSize: "1.2rem",
+              fontSize: { xs: "1rem", sm: "1.1rem", md: "1.2rem" },
               fontWeight: "bold",
               mb: 0.5,
               "&:hover": { color: "#FF9F0D" },
@@ -48,7 +48,10 @@ const MenuItem: React.FC<{ item: ProductResponse }> = ({ item }) => {
           >
             {item.name}
           </Typography>
-          <Typography variant="body2" sx={{ color: "#666", fontSize: "1rem", mb: 0.5, fontWeight: "light" }}>
+          <Typography
+            variant="body2"
+            sx={{ color: "#666", fontSize: { xs: "0.9rem", sm: "1rem" }, mb: 0.5, fontWeight: "light" }}
+          >
             {item.description}
           </Typography>
         </Box>
@@ -56,7 +59,7 @@ const MenuItem: React.FC<{ item: ProductResponse }> = ({ item }) => {
           variant="body1"
           sx={{
             color: "#FF9F0D",
-            fontSize: "1.2rem",
+            fontSize: { xs: "1rem", sm: "1.1rem", md: "1.2rem" },
             fontWeight: "bold",
             textAlign: "right",
             minWidth: "60px",
@@ -142,10 +145,13 @@ const MenuSection: React.FC<{ sectionIndex: number }> = ({ sectionIndex }) => {
   const ImageSection = () => (
     <Box
       sx={{
+        order: { xs: 1, sm: isImageLeft ? 1 : 2 },
         flex: 1,
         pr: isImageLeft ? { sm: 4 } : 0,
         pl: !isImageLeft ? { sm: 4 } : 0,
-        mb: { xs: 4, sm: 0 },
+        mb: { xs: 3, sm: 0 },
+        display: "flex",
+        justifyContent: { xs: "center", sm: "flex-start" },
       }}
     >
       {bannersLoading ? (
@@ -158,14 +164,14 @@ const MenuSection: React.FC<{ sectionIndex: number }> = ({ sectionIndex }) => {
 
   // Component cho phần nội dung menu
   const ContentSection = () => (
-    <Box sx={{ flex: 2 }}>
+    <Box sx={{ order: { xs: 2, sm: isImageLeft ? 2 : 1 }, flex: 2 }}>
       <Typography
         variant="h4"
         sx={{
           color: "#000",
           mb: 2,
           fontFamily: "Miniver",
-          fontSize: "2rem",
+          fontSize: { xs: "1.6rem", sm: "1.8rem", md: "2rem" },
           fontWeight: "bold",
           "&:hover": {
             color: "var(--color-yellow)",
@@ -210,20 +216,11 @@ const MenuSection: React.FC<{ sectionIndex: number }> = ({ sectionIndex }) => {
 
   return (
     <Box
-      sx={{ mb: 6, display: "flex", flexDirection: { xs: "column", sm: "row" }, alignItems: "center" }}
+      sx={{ mb: { xs: 4, md: 6 }, display: "flex", flexDirection: { xs: "column", sm: "row" }, alignItems: "center" }}
       ref={sectionRef}
     >
-      {isImageLeft ? (
-        <>
-          <ImageSection />
-          <ContentSection />
-        </>
-      ) : (
-        <>
-          <ContentSection />
-          <ImageSection />
-        </>
-      )}
+      <ImageSection />
+      <ContentSection />
     </Box>
   );
 };

@@ -22,15 +22,15 @@ const StatsSection: React.FC = () => {
   return (
     <Box
       sx={{
-        mb: 8,
+        mb: { xs: 5, md: 8 },
         display: "flex",
         justifyContent: "space-around",
         alignItems: "center",
         flexWrap: "wrap",
-        py: 4,
-        minHeight: "50vh",
+        py: { xs: 3, md: 4 },
+        minHeight: { xs: "auto", md: "50vh" },
         position: "relative",
-        px: { xs: 6, sm: 8 },
+        px: { xs: 2, sm: 4, md: 8 },
         "&::before": {
           content: '""',
           position: "absolute",
@@ -61,8 +61,14 @@ const StatsSection: React.FC = () => {
       }}
     >
       {statsData.map((stat, index) => (
-        <Box key={index} sx={{ textAlign: "center", mx: 2, mb: { xs: 4, sm: 0 } }}>
-          <Box sx={{ width: "120px", height: "120px", margin: "0 auto" }}>
+        <Box key={index} sx={{ textAlign: "center", mx: { xs: 1, md: 2 }, mb: { xs: 3, sm: 0 } }}>
+          <Box
+            sx={{
+              width: { xs: "84px", sm: "100px", md: "120px" },
+              height: { xs: "84px", sm: "100px", md: "120px" },
+              margin: "0 auto",
+            }}
+          >
             <img
               src={stat.image}
               alt={`${stat.number} ${stat.description}`}
@@ -73,12 +79,13 @@ const StatsSection: React.FC = () => {
               }}
             />
           </Box>
-          <Box sx={{ mt: 3 }}>
+          <Box sx={{ mt: { xs: 1.5, md: 3 } }}>
             <Typography
               variant="h5"
               sx={{
                 color: "#fff",
                 fontWeight: "bold",
+                fontSize: { xs: "1.1rem", md: "1.5rem" },
                 "&:hover": { color: "var(--color-yellow)" },
                 transition: "color 0.3s ease",
               }}
@@ -89,6 +96,7 @@ const StatsSection: React.FC = () => {
               variant="body1"
               sx={{
                 color: "#fff",
+                fontSize: { xs: "0.85rem", md: "1rem" },
                 "&:hover": { color: "var(--color-yellow)" },
                 transition: "color 0.3s ease",
               }}

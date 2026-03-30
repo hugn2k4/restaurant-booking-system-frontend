@@ -35,63 +35,72 @@ const TestimonialSection: React.FC = () => {
   };
 
   return (
-    <section className="py-16 bg-white mt-60">
-      <div className="text-center mb-12">
-        <h3 className="text-primary mb-2 text-left pl-[30%]" style={{ fontSize: 30, fontFamily: "Great Vibes" }}>
+    <section className="py-8 md:py-16 bg-white mt-20 md:mt-60">
+      <div className="text-center mb-8 md:mb-12 px-4">
+        <h3 className="text-primary mb-2" style={{ fontSize: "clamp(20px, 5vw, 30px)", fontFamily: "Great Vibes" }}>
           {t("testimonials.subtitle")}
         </h3>
-        <h2 className="text-4xl font-bold text-gray-800 text-left pl-[30%] mb-4">{t("testimonials.title")}</h2>
+        <h2 className="font-bold text-gray-800 mb-4" style={{ fontSize: "clamp(24px, 7vw, 44px)" }}>
+          {t("testimonials.title")}
+        </h2>
       </div>
 
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center relative">
-          {/* Arrow Left */}
+          {/* Arrow Left - Hidden on mobile */}
           <button
             onClick={handlePrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-all z-10"
+            className="hidden sm:flex absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-10 md:w-12 h-10 md:h-12 rounded-full bg-white shadow-lg items-center justify-center hover:bg-gray-50 transition-all z-10"
           >
-            <ChevronLeft className="w-7 h-7 text-gray-600" />
+            <ChevronLeft className="w-5 md:w-7 h-5 md:h-7 text-gray-600" />
           </button>
 
-          {/* Arrow Right */}
+          {/* Arrow Right - Hidden on mobile */}
           <button
             onClick={handleNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-all z-10"
+            className="hidden sm:flex absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-10 md:w-12 h-10 md:h-12 rounded-full bg-white shadow-lg items-center justify-center hover:bg-gray-50 transition-all z-10"
           >
-            <ChevronRight className="w-7 h-7 text-gray-600" />
+            <ChevronRight className="w-5 md:w-7 h-5 md:h-7 text-gray-600" />
           </button>
 
-          {/* Avatar */}
-          <div className="mb-6">
+          {/* Avatar - Responsive size */}
+          <div className="mb-4 md:mb-6">
             {loading ? (
-              <Skeleton variant="circular" width={160} height={160} className="mx-auto" />
+              <Skeleton variant="circular" width={120} height={120} className="mx-auto" />
             ) : (
               <img
                 src={current.avatar}
                 alt={current.name}
-                className="w-40 h-40 object-cover rounded-full mx-auto border-4 border-white shadow-xl"
+                className="w-28 md:w-40 h-28 md:h-40 object-cover rounded-full mx-auto border-4 border-white shadow-xl"
               />
             )}
           </div>
 
           {/* 5 Stars */}
-          <div className="flex justify-center mb-4">
+          <div className="flex justify-center mb-3 md:mb-4">
             {[1, 2, 3, 4, 5].map((star) => (
-              <span key={star} className="text-yellow-400 text-2xl">
+              <span key={star} className="text-yellow-400 text-lg md:text-2xl">
                 ⭐
               </span>
             ))}
           </div>
 
           {/* Quote */}
-          <blockquote className="text-gray-600 text-lg leading-relaxed mb-6 max-w-3xl mx-auto italic px-8">
+          <blockquote
+            className="text-gray-600 leading-relaxed mb-4 md:mb-6 max-w-3xl mx-auto italic px-4 md:px-8"
+            style={{ fontSize: "clamp(14px, 4vw, 18px)" }}
+          >
             "{current.text}"
           </blockquote>
 
           {/* Name & Role */}
           <div>
-            <p className="font-semibold text-gray-800 text-xl">{current.name}</p>
-            <p className="text-gray-500">{current.role}</p>
+            <p className="font-semibold text-gray-800" style={{ fontSize: "clamp(16px, 4vw, 18px)" }}>
+              {current.name}
+            </p>
+            <p className="text-gray-500" style={{ fontSize: "clamp(13px, 3vw, 14px)" }}>
+              {current.role}
+            </p>
           </div>
 
           {/* Dots - active dot dài hơn */}
